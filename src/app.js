@@ -6,15 +6,25 @@
 */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import './index.scss';
-import 'font-awesome/css/font-awesome.min.css';
-
+class Component  extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
+            name:'Rudy'
+        }
+    }
+    render(){
+        // setTimeout(()=>{
+        //     this.setState({
+        //         name:'Rudy-Ran'
+        //     })
+        // },2000)
+        return <h1>I am {this.props.name}</h1>
+    }
+}
 ReactDOM.render(
-    <div>
-        <i className="fa fa-address-book"></i>
-        <h1>hello world!!!!!!!!!!!!!!!</h1>
-    </div>,
+    <Component name="RRRRRRudy"/>,
     document.getElementById('app')
 );
 
