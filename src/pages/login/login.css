@@ -1,0 +1,237 @@
+@media screen and (min-width: 1601px) {
+  .login-content {
+    width: 480px;
+    padding: 0 60px;
+  }
+}
+@media screen and (max-width: 1600px) {
+  .login-content {
+    width: 400px;
+    padding: 0 40px;
+  }
+}
+@media screen and (min-width: 2000px) {
+  .login-wrapper {
+    margin: 0 auto;
+    width: 2000px;
+  }
+}
+#wrapper {
+  height: 100%;
+  background-color: #eff3f5;
+}
+.login-wrapper {
+  min-width: 1200px;
+  height: 100%;
+  min-height: 700px;
+  display: flex;
+  justify-content: flex-end;
+  background-image: url("../../images/login-bg.gif");
+}
+#login-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 1 auto;
+  position: relative;
+}
+#login-info #tipBrowser {
+  color: #909399;
+  height: 22px;
+  line-height: 22px;
+  font-size: 12px;
+  position: absolute;
+  bottom: 0px;
+  background-color: #3f4a5c;
+  width: 100%;
+  text-align: center;
+}
+#login-info .info-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#login-info .info-box #login-logo {
+  display: inline-block;
+  height: 42px;
+  margin-right: 38px;
+}
+#login-info .info-box .dot {
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 24px;
+}
+#login-info .info-box .hdm-title {
+  font-size: 56px;
+  font-weight: bold;
+  color: #fff;
+  line-height: 56px;
+  margin-left: 38px;
+}
+#login-info .info-box .hdm-title.is-oem {
+  margin-left: 0;
+}
+#login-box {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex: 0 1 30%;
+  height: auto;
+  flex-wrap: wrap;
+  z-index: 999;
+  background-color: #405170;
+  -webkit-box-shadow: 4px 0 10px 0 rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 4px 0 10px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 4px 0 18px 0 rgba(0, 0, 0, 0.5);
+}
+#login-box .login-header {
+  width: 100%;
+  margin-top: 24px;
+}
+#login-box .login-header .login-language {
+  float: right;
+  margin-right: 20px;
+}
+#login-box .login-header .login-help {
+  float: right;
+  margin-right: 24px;
+}
+#login-box .login-content {
+  margin-top: 40px;
+}
+#login-box .input-content {
+  padding: 20px 0;
+}
+#login-box .input-content .login-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+  word-break: break-all;
+  color: white;
+}
+#login-box .input-content .login-title .loginText1 {
+  font-size: 50px;
+  font-weight: bold;
+}
+#login-box .input-content .login-title .loginText2 {
+  margin: 9px 0 0 8px;
+  font-size: 30px;
+  font-weight: normal;
+}
+#login-box .input-content ul {
+  padding: 0px;
+}
+#login-box .input-content ul li {
+  list-style: none;
+}
+#login-box .input-content ul li:first-child {
+  margin-bottom: 40px;
+}
+#login-box .input-content .form-content {
+  position: relative;
+}
+#login-box .input-content .form-content .line {
+  border-right: 1px solid #888;
+  height: 25px;
+  position: absolute;
+  top: 12px;
+  left: 55px;
+}
+#login-box .input-content input {
+  width: 100%;
+  height: 48px;
+  padding-left: 65px;
+  border: 0;
+  border-radius: 2px;
+  font-size: 15px;
+  outline: medium;
+}
+#login-box .login-notice {
+  font-size: 14px;
+  background-color: rgba(230, 0, 18, 0.2);
+  border: 1px solid rgba(230, 0, 18, 0.2);
+  position: relative;
+  border-radius: 2px;
+}
+#login-box .login-notice .notice-lang {
+  margin: 0 0 0 38px;
+  padding: 10px 0px;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 14px;
+  color: #fff;
+}
+#login-box .login-btn {
+  margin-top: 20px;
+}
+#login-box .login-btn .btn-login {
+  width: 100%;
+  height: 48px;
+  background-color: #3385ff;
+  font-size: 24px;
+  color: #fff;
+  border: 0;
+  cursor: pointer;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.3);
+}
+#login-box .login-btn .btn-login:disabled {
+  background-color: #c6c6c6;
+  pointer-events: auto;
+  cursor: not-allowed;
+}
+#login-box .switch {
+  margin-top: 20px;
+  border-radius: 2px;
+  background-color: rgba(255, 192, 0, 0.2);
+  border: 1px solid rgba(255, 192, 0, 0.2);
+  text-align: center;
+  color: white;
+  font-size: 14px;
+}
+#login-box #copyright {
+  display: block;
+  margin-bottom: 0px;
+  color: #feffff;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 130px;
+}
+.retrieve-passwd-box {
+  margin: 20px 18px;
+  margin-bottom: 0;
+}
+.retrieve-passwd-box .retrieve-passwd-input {
+  position: relative;
+  margin-top: 12px;
+  border: 1px solid #dbdbdb;
+}
+.retrieve-passwd-box .retrieve-passwd-input .icons-retirepwd {
+  position: absolute;
+  top: 6px;
+  left: 10px;
+}
+.retrieve-passwd-box .retrieve-passwd-input input {
+  font-size: 15px;
+  width: 302px;
+  height: 38px;
+  margin-left: 44px;
+  border: 0;
+  outline: 0;
+  padding: 0;
+}
+.retrieve-passwd-box .retrieve-passwd-input input .line {
+  border-right: 1px solid #888;
+  height: 25px;
+  position: absolute;
+  top: 12px;
+  left: 55px;
+}
+.retrieve-passwd-box .retrieve-notice {
+  margin-top: 8px;
+  color: red;
+}

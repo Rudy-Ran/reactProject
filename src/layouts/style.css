@@ -1,0 +1,40 @@
+.headerWrapper {
+  height: 64px;
+  float: right;
+}
+.headerWrapper li {
+  float: right;
+  margin-right: 28px;
+}
+.headerWrapper li span {
+  cursor: pointer;
+}
+.headerWrapper li .icons-user {
+  margin-top: 26px;
+}
+.headerWrapper li .icon-message,
+.headerWrapper li .icons-lang-en,
+.headerWrapper li .icons-lang-cn,
+.headerWrapper li .icons-exit {
+  margin-top: 22px;
+}
+.headerWrapper li .username {
+  margin-left: -15px;
+}
+.headerWrapper li .line {
+  font-size: 18px;
+}
+.headerWrapper li .power-icon {
+  background: url("../images/power_on.png");
+  width: 22px;
+  display: block;
+  height: 22px;
+  margin-top: 22px;
+}
+.headerWrapper li .uid-icon {
+  background: url("../images/UID_0.gif");
+  width: 22px;
+  display: block;
+  height: 22px;
+  margin-top: 22px;
+}

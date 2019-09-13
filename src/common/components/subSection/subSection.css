@@ -1,0 +1,9 @@
+.subSection-title {
+  padding: 0 10px;
+  margin-top: 16px;
+  line-height: 16px;
+  color: #303133;
+  font-weight: bold;
+  border-left: 3px solid #3385ff;
+  font-size: 12px;
+}

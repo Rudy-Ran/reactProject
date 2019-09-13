@@ -188,3 +188,38 @@ ReactDOM.render(
     document.getElementById('app')
 );
 ```
+
+## React-Router 笔记
+### ```<Router>```
+<Router>下只允许存在一个子元素，如果存在多个，则会报错
+```javascript
+/*错误的实例*/
+<Router>
+      <ul>
+        <li><Link to="/">首页</Link></li>
+        <li><Link to="/about">关于</Link></li>
+        <li><Link to="/topics">主题列表</Link></li>
+      </ul>
+
+      <hr/>
+
+      <Route exact path="/" component={Home}/>
+      <Route path="/about" component={About}/>
+      <Route path="/topics" component={Topics}/>
+ </Router>
+```
+上面的代码会报错，应该用div将里面的元素包裹起来
+
+### ```<Route>```
+指定当location匹配某个路由的path时，渲染指定的UI。
+#### 属性
+- `path`:匹配的路径
+- `exact(bool)`:为true的时候，要求必须和`location.pathname`必须完全匹配
+- `strict(bool)`:true的时候，有结尾斜线的路径只能匹配有斜线的路径只能匹配有斜线的`location.pathname`
+#### 渲染内容的方法
+- `<Route component>:`当地址匹配的时候才回去渲染组件，`route props`也会一起被渲染
+- `<Route render>:`这种方式对于内联渲染和包装组件却不引起意料之外的重新挂载特别方便
+- `<Route children>:`与render属性的工作方式基本一样，除了它是不管地址匹配与否都会被调用
+```javascript
+<Route path="/home" render={() => <div>Home</div>}/>
+```
