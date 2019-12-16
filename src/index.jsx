@@ -14,8 +14,6 @@ class App extends React.Component {
         super();
     }
     render() {
-        // var html = require('./index.html')
-        // console.log(html)
         let LayoutRouter = (
             <Switch>
                 <Route component={Login} path="/login" />
@@ -37,6 +35,7 @@ class App extends React.Component {
             <Provider store={store}>
                 <Router>
                     <Route path="/" render={props => LayoutRouter} />
+                    {/* TODO:如何解决 / => /info/dashboard ? */}
                 </Router>
             </Provider>
         );

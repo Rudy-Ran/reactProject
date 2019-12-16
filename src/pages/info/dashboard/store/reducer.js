@@ -1,10 +1,8 @@
-import { INIT_ALARM_INFO,INIT_UID_STATUS,INIT_POWER_STATUS,INIT_TCG_STATUS,INIT_HOST_NAME,INIT_NET_DATA ,INIT_FIRMWARE_DATA,INIT_NTP_DATA,INIT_SESSION_DATA,INIT_HEALTH_INFO} from './actionCreators.js';
+import { INIT_ALARM_INFO,INIT_TCG_STATUS,INIT_HOST_NAME,INIT_NET_DATA ,INIT_FIRMWARE_DATA,INIT_NTP_DATA,INIT_SESSION_DATA,INIT_HEALTH_INFO} from './actionCreators.js';
 import {fromJS} from 'immutable';
 const initState = fromJS({
     health_info: {},
     alarm_info: {},
-    uidStatus:null,
-    poserStatus:{},
     tcgStatus:{},
     hostName:'',
     networkData:[],
@@ -72,12 +70,6 @@ export default function(state = initState, action) {
         }
         case INIT_ALARM_INFO: {
             return state.set('alarm_info',action.data);
-        }
-        case INIT_UID_STATUS:{
-            return state.set('uidStatus',action.data);
-        }
-        case INIT_POWER_STATUS:{
-            return state.set('powerStatus',action.data);
         }
         case INIT_TCG_STATUS:{
             return state.set('tcgStatus',action.data);

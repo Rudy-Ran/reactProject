@@ -1,6 +1,7 @@
 import axios from 'axios';
 export const INIT_NETWORK_DATA = 'INIT_NETWORK_DATA';
 export const NETWORK_VALUE_CHANGE = 'NETWORK_VALUE_CHANGE';
+export const NETWORK_ERRORS_CHANGE = 'NETWORK_ERRORS_CHANGE';
 import {dialog} from '@/utils/h3c.dialog.js';
 import {clearWait,showWait,showModal} from '@/common/store/actionCreators.js'; 
 export const JDUGE_DISABLE_STATUS = 'JDUGE_DISABLE_STATUS';
@@ -8,14 +9,20 @@ function initNetWorkData(data){
     return{
         type:INIT_NETWORK_DATA,
         eth0_data:data[0],
-        eth1_data:data[1]
+        eth1_data:data[1],
+        init_data:data
     };
 }
-export function networkValueChange(component,key,value){
+export function networkValueChange(component,value){
     return{
         type:NETWORK_VALUE_CHANGE,
         component,
-        key,
+        value
+    };
+}
+export function handleErrorChange(value){
+    return{
+        type:NETWORK_ERRORS_CHANGE,
         value
     };
 }
@@ -40,7 +47,6 @@ export function saveDedicatePortCfg(data){
     return async (dispatch)=>{
         await axios.post('http://settings/network',data).then(
             function(res){
-                console.log(res);
                 switch(res.data.cc){
                     case 0:
                         dispatch(showModal('专用网口配置已成功。配置正在生效，请稍等片刻，然后打开一个新的浏览器会话连接到该设备。'));

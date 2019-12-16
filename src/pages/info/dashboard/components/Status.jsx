@@ -9,18 +9,19 @@ import powerImg1 from '@/images/power_off.png';
 import powerImg2 from '@/images/power_on.png';
 class Status extends React.Component {
     initUIDStatus(){
+        let uidTxt;
         let uidImgURL;
         switch(this.props.uidStatus){
             case 0:{
-                uidImgURL= img0URL;
+                uidTxt = '关闭',uidImgURL= img0URL;
                 break;
             }
             case 1:{
-                uidImgURL= img1URL;
+                uidTxt = '开启',uidImgURL= img1URL;
                 break;
             }
             case 2:{
-                uidImgURL= img2URL;
+                uidTxt = '闪烁',uidImgURL= img2URL;
                 break;
             }
             default:break;
@@ -30,18 +31,21 @@ class Status extends React.Component {
                 <Col span={12}>UID状态</Col>
                 <Col span={12}>
                     <img src={uidImgURL}/>
+                    <span>{uidTxt}</span>
                 </Col>
             </Row>
         );
     }
     initPowerStatus(){
+        let powerTxt;
         let powerImgURL;
-        this.props.powerStatus ? (powerImgURL = powerImg1):(powerImgURL = powerImg2);
+        this.props.powerStatus ? (powerTxt = '关闭',powerImgURL = powerImg1):(powerTxt = '开启',powerImgURL = powerImg2);
         return(
             <Row className="led-info">
                 <Col span={12}>服务器电源</Col>
                 <Col span={12}>
                     <img src={powerImgURL}/>
+                    <span>{powerTxt}</span>
                 </Col>
             </Row>
         );
@@ -277,8 +281,8 @@ class Status extends React.Component {
 const mapStateToProps = (state) =>{
     return{
         alarmInfo:state.getIn(['dashboard','alarm_info']),
-        uidStatus:state.getIn(['dashboard','uidStatus']),
-        powerStatus:state.getIn(['dashboard','powerStatus']),
+        uidStatus:state.getIn(['common','uidStatus','status']),
+        powerStatus:state.getIn(['common','powerStatus']),
         tcgStatus:state.getIn(['dashboard','tcgStatus']),
         healthInfo:state.getIn(['dashboard','health_info']),
     };

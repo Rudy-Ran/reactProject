@@ -6,8 +6,7 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 class Login extends React.PureComponent{
     render(){
-        const {handleLogin,isLogin,username,password,handleInputChange,loginError} = this.props;
-        console.log(loginError);
+        const {isLogin,username,password,handleInputChange,loginError} = this.props;
         if(isLogin){
             return(
                 <Redirect from="/login" to="/"/>
@@ -40,8 +39,7 @@ class Login extends React.PureComponent{
                                                 <em className="icons-username"></em>
                                                 <i className="line"></i>
                                                 <input type="text" value={username} name="username" id="login-username" placeholder="请输入用户名" maxLength="16"
-                                                    onChange={(e)=>handleInputChange(e)}
-                                                    />
+                                                    onChange={(e)=>handleInputChange(e)}/>
                                             </div>
                                         </li>
                                         <li>
@@ -49,7 +47,6 @@ class Login extends React.PureComponent{
                                                 <em className="icons-password"></em>
                                                 <i className="line"></i>
                                                 <input type="password" value={password} name="password" id="login-password" placeholder="请输入密码" maxLength="20"
-                                                    onKeyPress={(event)=>this.sendLogin(event)}
                                                     onChange={(e)=>handleInputChange(e)}/>
                                             </div>
                                         </li>
@@ -60,7 +57,7 @@ class Login extends React.PureComponent{
                                     <div className="notice-lang">{loginError}</div>
                                 </div>
                                 <div className="login-btn">
-                                    <button className="btn-login" onClick={()=>this.sendLogin()}>登录</button>
+                                    <button className="btn-login" onClick={()=>this.saveLoginData()}>登录</button>
                                 </div>
                                 <div className="switch">
                                     维护开关开启，请使用默认的用户名和密码登录
@@ -75,16 +72,11 @@ class Login extends React.PureComponent{
             );
         }
     }
-    sendLogin(event){
-        console.log(event.charCode)
-        if(event.charCode === 13){
-            
-        }
+    saveLoginData(){
         if(this.checkLoginData()){
-            // this.props.handleLogin()
+            this.props.handleLogin();
         }
     }
-    //校验用户名密码
     checkLoginData(){
         const {username,password,handleLoginError} = this.props;
         if (!(username.match(/^.{1,16}$/))) {

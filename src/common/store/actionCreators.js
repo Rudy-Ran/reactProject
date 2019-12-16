@@ -1,3 +1,4 @@
+import axios from 'axios';
 export const CLEAT_WAIT = 'CLEAT_WAIT';
 export const SHOW_WAIT = 'SHOW_WAIT';
 export const SHOW_MODAL = 'SHOW_MODAL';
@@ -5,6 +6,8 @@ export const CHANGE_ERROR_STATUS = 'CHANGE_ERROR_STATUS';
 export const CLEAT_ERROR_STATUS = 'CLEAT_ERROR_STATUS';
 export const CHANGE_LOGIN_STATE = 'CHANGE_LOGIN_STATE';
 export const LOGIN_INPUT_CHANGE = 'LOGIN_INPUT_CHANGE';
+export const INIT_UID_STATUS = 'INIT_UID_STATUS';
+export const INIT_POWER_STATUS = 'INIT_POWER_STATUS';
 export function clearWait(){
     return{
         type:CLEAT_WAIT,
@@ -19,6 +22,18 @@ export function showModal(content){
     return{
         type:SHOW_MODAL,
         content
+    };
+}
+function initUidStatus(data){
+    return {
+        type:INIT_UID_STATUS,
+        data
+    };
+}
+function initPowerStatus(data){
+    return {
+        type:INIT_POWER_STATUS,
+        data
     };
 }
 export function changeErrorStatus(component,key,value){
@@ -50,6 +65,25 @@ export function loginInputChange(key,value){
             key,
             value
         }
+    };
+}
+export function getUIDStatus(){
+    return async(dispatch)=>{
+        await axios.get('http://remote/uid').then(
+            function(res){
+                dispatch(initUidStatus(res.data)); 
+            }).catch(function(error){
+        });
+    };
+}
+export function getPowerStatus(){
+    return async(dispatch)=>{
+        await axios.get('http://chassis_status').then(
+            function(res){
+                dispatch(initPowerStatus(res.data)); 
+            }).catch(function(error){
+            console.log(error);
+        });
     };
 }
 

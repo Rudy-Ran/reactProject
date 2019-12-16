@@ -1,13 +1,15 @@
-import {CLEAT_WAIT,SHOW_WAIT,SHOW_MODAL,CHANGE_ERROR_STATUS,CLEAT_ERROR_STATUS,CHANGE_LOGIN_STATE,LOGIN_INPUT_CHANGE,HANDLE_LOGIN_ERROR} from './actionCreators.js';
+import {CLEAT_WAIT,SHOW_WAIT,SHOW_MODAL,CHANGE_ERROR_STATUS,CLEAT_ERROR_STATUS,CHANGE_LOGIN_STATE,LOGIN_INPUT_CHANGE,HANDLE_LOGIN_ERROR,INIT_UID_STATUS,INIT_POWER_STATUS} from './actionCreators.js';
 import {fromJS} from 'immutable';
 const initState = fromJS({
     showWait:true,
     modalVisible:false,
     modalContent:'',
     modalTitle:'',
-    isLogin:false,
+    isLogin:true,
     username:"",
     password:"",
+    uidStatus:null,
+    poserStatus:{},
     error:{
         "host":{
             hostError:false
@@ -48,6 +50,12 @@ export default function (state=initState,action){
                 modalContent:action.content,
                 modalTitle:action.title
             });
+        }
+        case INIT_UID_STATUS:{
+            return state.set('uidStatus',action.data);
+        }
+        case INIT_POWER_STATUS:{
+            return state.set('powerStatus',action.data);
         }
         case CHANGE_ERROR_STATUS:{
             return state.setIn(["error",action.component,action.key],action.value);

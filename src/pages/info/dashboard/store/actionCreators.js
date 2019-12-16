@@ -1,8 +1,5 @@
 import axios from 'axios';
-import {fromJS} from 'immutable';
 export const INIT_ALARM_INFO = 'INIT_ALARM_INFO';
-export const INIT_UID_STATUS = 'INIT_UID_STATUS';
-export const INIT_POWER_STATUS = 'INIT_POWER_STATUS';
 export const INIT_TCG_STATUS = 'INIT_TCG_STATUS';
 export const INIT_HOST_NAME = 'INIT_HOST_NAME';
 export const INIT_NET_DATA = 'INIT_NET_DATA';
@@ -13,18 +10,6 @@ export const INIT_HEALTH_INFO = 'INIT_HEALTH_INFO';
 function initAlarmInfo(data){
     return{
         type:INIT_ALARM_INFO,
-        data
-    };
-}
-function initUidStatus(data){
-    return {
-        type:INIT_UID_STATUS,
-        data
-    };
-}
-function initPowerStatus(data){
-    return {
-        type:INIT_POWER_STATUS,
         data
     };
 }
@@ -153,20 +138,12 @@ export function getData(){
         if(res1.status === 200){
             dispatch(initAlarmInfo(res1.data));
         }
-        const res2 = await axios.get('http://remote/uid');
-        if(res2.status === 200){
-            dispatch(initUidStatus(res2.data.status));
-        }
-        const res3 = await axios.get('http://chassis_status');
-        if(res3.status === 200){
-            dispatch(initPowerStatus(res3.data.power_status));
-        }
         const res4 = await axios.get('http://tcg_status');
         if(res4.status === 200){
             dispatch(initTCGStatus(res4.data));
         }
         const res5 = await axios.get('http://network/host');
-        if(res2.status === 200){
+        if(res5.status === 200){
             dispatch(initHostName(res5.data.host_name));
         }
         const res6  =await axios.get('http://settings/network');

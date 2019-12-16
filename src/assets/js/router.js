@@ -3,10 +3,12 @@ import HardWare from '@/pages/info/hardware/hardware.jsx';
 import FirmWare from '@/pages/info/firmware/firmware.jsx';
 import Resource from '@/pages/info/resource_summary/resource.jsx';
 import Monitor from '@/pages/info/Monitor/monitor.jsx';
+import EventLog from '@/pages/server_health/event_log/index.jsx';
 import DNS from '@/pages/network/dns/index.jsx';
 import PortMode from '@/pages/network/portmode/PortMode.jsx';
 import Dedicate from '@/pages/network/network_config/Dedicate.jsx';
 import SharedPort from '@/pages/network/network_config/SharedPort.jsx';
+import TodoBox from '@/pages/other/hook.jsx';
 const router = [
     {
         path: '/',
@@ -34,6 +36,10 @@ const router = [
         component:Monitor
     },
     {
+        path:'/server_health/event_log',
+        component:EventLog
+    },
+    {
         path:'/network/dedicated_port',
         component:Dedicate
     },
@@ -48,6 +54,10 @@ const router = [
     {
         path:'/network/port_mode',
         component:PortMode
+    },
+    {
+        path:'/other/roughviz',
+        component:TodoBox
     }
 ];
 export default router;
