@@ -54,14 +54,20 @@
     "immutable": "^4.0.0-rc.12",
     "minimize": "^2.2.0",
     "mockjs": "^1.0.1-beta3",
+<<<<<<< HEAD
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+=======
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+>>>>>>> d054e9de3364b7a903429ce6e077aa5834f38e82
     "react-redux": "^5.0.6",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
     "redux-immutable": "^4.0.0",
+    "redux-react-hook": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",

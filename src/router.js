@@ -8,7 +8,7 @@ import DNS from '@/pages/network/dns/index.jsx';
 import PortMode from '@/pages/network/portmode/PortMode.jsx';
 import Dedicate from '@/pages/network/network_config/Dedicate.jsx';
 import SharedPort from '@/pages/network/network_config/SharedPort.jsx';
-import TodoBox from '@/pages/other/hook.jsx';
+import App from '@/pages/other/index.jsx';
 const router = [
     {
         path: '/',
@@ -19,45 +19,45 @@ const router = [
         path:'/info/dashboard',
         component:DashBoard
     },
-    {
-        path:'/info/hardware',
-        component:HardWare
-    },
-    {
-        path:'/info/firmware',
-        component:FirmWare
-    },
-    {
-        path:'/info/resource_summary',
-        component:Resource
-    },
-    {
-        path:'/info/monitoring',
-        component:Monitor
-    },
-    {
-        path:'/server_health/event_log',
-        component:EventLog
-    },
-    {
-        path:'/network/dedicated_port',
-        component:Dedicate
-    },
-    {
-        path:'/network/shared_port',
-        component:SharedPort
-    },
-    {
-        path:'/network/dns',
-        component:DNS
-    },
-    {
-        path:'/network/port_mode',
-        component:PortMode
-    },
-    {
-        path:'/other/roughviz',
-        component:TodoBox
-    }
+    // {
+    //     path:'/info/hardware',
+    //     component:HardWare
+    // },
+    // {
+    //     path:'/info/firmware',
+    //     component:FirmWare
+    // },
+    // {
+    //     path:'/info/resource_summary',
+    //     component:Resource
+    // },
+    // {
+    //     path:'/info/monitoring',
+    //     component:Monitor
+    // },
+    // {
+    //     path:'/server_health/event_log',
+    //     component:EventLog
+    // },
+    // {
+    //     path:'/network/dedicated_port',
+    //     component:Dedicate
+    // },
+    // {
+    //     path:'/network/shared_port',
+    //     component:SharedPort
+    // },
+    // {
+    //     path:'/network/dns',
+    //     component:DNS
+    // },
+    // {
+    //     path:'/network/port_mode',
+    //     component:PortMode
+    // },
+    // {
+    //     path:'/other/roughviz',
+    //     component:App
+    // }
 ];
 export default router;
