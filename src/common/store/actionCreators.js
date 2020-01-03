@@ -8,6 +8,7 @@ export const CHANGE_LOGIN_STATE = 'CHANGE_LOGIN_STATE';
 export const LOGIN_INPUT_CHANGE = 'LOGIN_INPUT_CHANGE';
 export const INIT_UID_STATUS = 'INIT_UID_STATUS';
 export const INIT_POWER_STATUS = 'INIT_POWER_STATUS';
+import {getUIDStatusRequest,getPowerStatusRequest} from '@/api/request.js'
 export function clearWait(){
     return{
         type:CLEAT_WAIT,
@@ -69,21 +70,20 @@ export function loginInputChange(key,value){
 }
 export function getUIDStatus(){
     return async(dispatch)=>{
-        await axios.get('http://remote/uid').then(
-            function(res){
-                dispatch(initUidStatus(res.data)); 
-            }).catch(function(error){
-        });
+        getUIDStatusRequest().then(data=>{
+            dispatch(initUidStatus(data))
+        }).catch(()=>{
+            console.log('getUIDStatusFail !')
+        })
     };
 }
 export function getPowerStatus(){
     return async(dispatch)=>{
-        await axios.get('http://chassis_status').then(
-            function(res){
-                dispatch(initPowerStatus(res.data)); 
-            }).catch(function(error){
-            console.log(error);
-        });
+        getPowerStatusRequest().then(data=>{
+            dispatch(initPowerStatus(data))
+        }).catch(()=>{
+            console.log('getPowerStatusFail !')
+        })
     };
 }
 

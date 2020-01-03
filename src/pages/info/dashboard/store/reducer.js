@@ -1,5 +1,5 @@
-import { INIT_ALARM_INFO,INIT_TCG_STATUS,INIT_HOST_NAME,INIT_NET_DATA ,INIT_FIRMWARE_DATA,INIT_NTP_DATA,INIT_SESSION_DATA,INIT_HEALTH_INFO} from './actionCreators.js';
 import {fromJS} from 'immutable';
+import * as actionTypes from './constants.js';
 const initState = fromJS({
     health_info: {},
     alarm_info: {},
@@ -65,32 +65,32 @@ function changeTimestamp(Timestamp) {
 }
 export default function(state = initState, action) {
     switch (action.type) {
-        case INIT_HEALTH_INFO:{
+        case actionTypes.INIT_HEALTH_INFO:{
             return state.set('health_info',action.data);
         }
-        case INIT_ALARM_INFO: {
+        case actionTypes.INIT_ALARM_INFO: {
             return state.set('alarm_info',action.data);
         }
-        case INIT_TCG_STATUS:{
+        case actionTypes.INIT_TCG_STATUS:{
             return state.set('tcgStatus',action.data);
         }
-        case INIT_HOST_NAME:{
+        case actionTypes.INIT_HOST_NAME:{
             return state.set('hostName',action.data);
         }
-        case INIT_NET_DATA:{
+        case actionTypes.INIT_NET_DATA:{
             return state.set('networkData',action.data);
         }
-        case INIT_FIRMWARE_DATA :{
+        case actionTypes.INIT_FIRMWARE_DATA :{
             return state.merge({
                 'hdm_info':action.hdm_info,
                 'bios_info':action.bios_info,
                 'cpld_info':action.cpld_info
             });
         }
-        case INIT_NTP_DATA:{
+        case actionTypes.INIT_NTP_DATA:{
             return state.set('hdmTime',changeTimestamp(action.time));
         }
-        case INIT_SESSION_DATA:{
+        case actionTypes.INIT_SESSION_DATA:{
             return state.set('seesionTableData',action.data);
         }
         default:

@@ -1,39 +1,41 @@
 import axios from 'axios';
-export const INIT_ALARM_INFO = 'INIT_ALARM_INFO';
-export const INIT_TCG_STATUS = 'INIT_TCG_STATUS';
-export const INIT_HOST_NAME = 'INIT_HOST_NAME';
-export const INIT_NET_DATA = 'INIT_NET_DATA';
-export const INIT_FIRMWARE_DATA = 'INIT_FIRMWARE_DATA';
-export const INIT_NTP_DATA = 'INIT_NTP_DATA';
-export const INIT_SESSION_DATA = 'INIT_SESSION_DATA';
-export const INIT_HEALTH_INFO = 'INIT_HEALTH_INFO';
+import * as actionTypes from './constants.js';
+import {getAlarmInfoRequest,
+        getTcgStatusRequest,
+        getHostRequest,
+        getNetworkRequest,
+        getFirmwareRequest,
+        getNTPRequest,
+        getSessionRequest,
+        getHealthInfoRequest} from '@/api/request.js'
 function initAlarmInfo(data){
     return{
-        type:INIT_ALARM_INFO,
+        type:actionTypes.INIT_ALARM_INFO,
         data
     };
 }
 function initTCGStatus(data){
     return {
-        type:INIT_TCG_STATUS,
+        type:actionTypes.INIT_TCG_STATUS,
         data
     };
 }
 function initHostName(data){
+    console.log(data)
     return {
-        type:INIT_HOST_NAME,
+        type:actionTypes.INIT_HOST_NAME,
         data
     };
 }
 function initNetworkData(data){
     return {
-        type:INIT_NET_DATA,
+        type:actionTypes.INIT_NET_DATA,
         data
     };
 }
 function initFirmwareData(data){
     return {
-        type:INIT_FIRMWARE_DATA,
+        type:actionTypes.INIT_FIRMWARE_DATA,
         hdm_info:data[0].bmc_revision,
         bios_info:data[0].bios_revision,
         cpld_info:data[0].cpld_revision
@@ -41,7 +43,7 @@ function initFirmwareData(data){
 }
 function initNTP(data){
     return {
-        type:INIT_NTP_DATA,
+        type:actionTypes.INIT_NTP_DATA,
         time:data.timestamp
     };
 }
@@ -121,51 +123,60 @@ function initSession(data){
         }
     }
     return {
-        type:INIT_SESSION_DATA,
+        type:actionTypes.INIT_SESSION_DATA,
         data
     };
 }
 function initHealthInfo(data){
     return{
-        type:INIT_HEALTH_INFO,
+        type:actionTypes.INIT_HEALTH_INFO,
         data
     };
 }
-export function getData(){
+export function getDashboardData(){
 
     return async (dispatch)=>{
-        const res1 = await axios.get('http://alarm_info');
-        if(res1.status === 200){
-            dispatch(initAlarmInfo(res1.data));
-        }
-        const res4 = await axios.get('http://tcg_status');
-        if(res4.status === 200){
-            dispatch(initTCGStatus(res4.data));
-        }
-        const res5 = await axios.get('http://network/host');
-        if(res5.status === 200){
-            dispatch(initHostName(res5.data.host_name));
-        }
-        const res6  =await axios.get('http://settings/network');
-        if(res6.status === 200){
-            dispatch(initNetworkData(res6.data));
-        }
-        const res7 = await axios.get('http://setting/firmware');
-        if(res7.status === 200){
-            dispatch(initFirmwareData(res7.data));
-        }
-        const res8 = await axios.get('http://config/get_ntp');
-        if(res8.status === 200){
-            dispatch(initNTP(res8.data));
-        }
-        const res9 = await axios.get('http://settings/service-sessions');
-        if(res9.status === 200){
-            dispatch(initSession(res9.data));
-        }
-        const res10 = await axios.get('http://health_info');
-        if(res10.status === 200){
-            dispatch(initHealthInfo(res10.data));
-        }
+        getAlarmInfoRequest().then(data=>{
+            dispatch(initAlarmInfo(data))
+        }).catch(()=>{
+            console.log('getAlarmInfoFail !')
+        })
+        getTcgStatusRequest().then(data=>{
+            dispatch(initTCGStatus(data))
+        }).catch(()=>{
+            console.log('getTcgStatusFail !')
+        })
+        getNetworkRequest().then(data=>{
+            dispatch(initNetworkData(data))
+        }).catch(()=>{
+            console.log('getNetworkFail !')
+        })
+        getHostRequest().then(data=>{
+            dispatch(initHostName(data.host_name))
+        }).catch((err)=>{
+            console.log(err)
+            console.log('getHostFail !')
+        })
+        getFirmwareRequest().then(data=>{
+            dispatch(initFirmwareData(data))
+        }).catch(()=>{
+            console.log('getFirmwareFail !')
+        })
+        getNTPRequest().then(data=>{
+            dispatch(initNTP(data))
+        }).catch(()=>{
+            console.log('getNTPFail !')
+        })
+        getSessionRequest().then(data=>{
+            dispatch(initSession(data))
+        }).catch(()=>{
+            console.log('getSessionFail !')
+        })
+        getHealthInfoRequest().then(data=>{
+            dispatch(initHealthInfo(data))
+        }).catch(()=>{
+            console.log('getHealthInfoFail !')
+        })
     };
 } 
 

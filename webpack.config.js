@@ -56,23 +56,32 @@ module.exports = {
                 loader: 'sass-loader' // 将 Sass 编译成 CSS
             }]
         },
+        //less
         {
             test: /\.less$/,
-            exclude: [/node_modules/],
             use: [
-                require.resolve('style-loader'),
-                {
-                    loader: require.resolve('css-loader'),
-                    options: {
-                        modules: true,
-                        localIndetName: '[name]__[local]___[hash:base64:5]'
-                    },
-                },
-                {
-                    loader: require.resolve('less-loader'), // compiles Less to CSS
-                },
-            ],
+                'style-loader',
+                { loader: 'css-loader', options: { importLoaders: 1 } },
+                'less-loader'
+            ]
         },
+        // {
+        //     test: /\.less$/,
+        //     exclude: [/node_modules/],
+        //     use: [
+        //         require.resolve('style-loader'),
+        //         {
+        //             loader: require.resolve('css-loader'),
+        //             options: {
+        //                 modules: true,
+        //                 localIndetName: '[name]__[local]___[hash:base64:5]'
+        //             },
+        //         },
+        //         {
+        //             loader: require.resolve('less-loader'), // compiles Less to CSS
+        //         },
+        //     ],
+        // },
         // {
         //     test: /\.css$/,
         //     use:{

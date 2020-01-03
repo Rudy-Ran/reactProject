@@ -2,7 +2,7 @@ import React from 'react';
 import {Row,Col,Button} from 'antd';
 import Title from "@/common/components/subSection/subSectionTitle.jsx";
 import ProgressBar from './component/Progress.jsx';
-import './resource.css';
+import './resource.less';
 class Resource extends React.Component{
     constructor(props){
         super(props);

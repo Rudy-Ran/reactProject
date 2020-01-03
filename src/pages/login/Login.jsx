@@ -1,5 +1,5 @@
 import React from 'react';
-import './login.css';
+import './login.less';
 import logoUrl from '@/images/logo1.png';
 import * as actionCreators from '@/common/store/actionCreators.js';
 import {connect} from 'react-redux';
