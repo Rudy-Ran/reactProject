@@ -54,13 +54,8 @@
     "immutable": "^4.0.0-rc.12",
     "minimize": "^2.2.0",
     "mockjs": "^1.0.1-beta3",
-<<<<<<< HEAD
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-=======
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
->>>>>>> d054e9de3364b7a903429ce6e077aa5834f38e82
     "react-redux": "^5.0.6",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",

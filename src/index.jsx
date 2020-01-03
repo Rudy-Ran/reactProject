@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {StoreContext} from 'redux-react-hook';
 import BasicLayouts from "./layouts/layout.jsx";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import router from "./router.js";
@@ -33,12 +32,12 @@ class App extends React.Component {
             </Switch>
         );
         return (
-            <StoreContext.Provider value={store}>
+            <Provider store={store}>
                 <Router>
                     <Route path="/" render={props => LayoutRouter} />
                     {/* TODO:如何解决 / => /info/dashboard ? */}
                 </Router>
-            </StoreContext.Provider>
+            </Provider>
         );
     }
 }

@@ -19,45 +19,45 @@ const router = [
         path:'/info/dashboard',
         component:DashBoard
     },
-    // {
-    //     path:'/info/hardware',
-    //     component:HardWare
-    // },
-    // {
-    //     path:'/info/firmware',
-    //     component:FirmWare
-    // },
-    // {
-    //     path:'/info/resource_summary',
-    //     component:Resource
-    // },
-    // {
-    //     path:'/info/monitoring',
-    //     component:Monitor
-    // },
-    // {
-    //     path:'/server_health/event_log',
-    //     component:EventLog
-    // },
-    // {
-    //     path:'/network/dedicated_port',
-    //     component:Dedicate
-    // },
-    // {
-    //     path:'/network/shared_port',
-    //     component:SharedPort
-    // },
-    // {
-    //     path:'/network/dns',
-    //     component:DNS
-    // },
-    // {
-    //     path:'/network/port_mode',
-    //     component:PortMode
-    // },
-    // {
-    //     path:'/other/roughviz',
-    //     component:App
-    // }
+    {
+        path:'/info/hardware',
+        component:HardWare
+    },
+    {
+        path:'/info/firmware',
+        component:FirmWare
+    },
+    {
+        path:'/info/resource_summary',
+        component:Resource
+    },
+    {
+        path:'/info/monitoring',
+        component:Monitor
+    },
+    {
+        path:'/server_health/event_log',
+        component:EventLog
+    },
+    {
+        path:'/network/dedicated_port',
+        component:Dedicate
+    },
+    {
+        path:'/network/shared_port',
+        component:SharedPort
+    },
+    {
+        path:'/network/dns',
+        component:DNS
+    },
+    {
+        path:'/network/port_mode',
+        component:PortMode
+    },
+    {
+        path:'/other/roughviz',
+        component:App
+    }
 ];
 export default router;
