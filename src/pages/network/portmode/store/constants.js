@@ -1,0 +1,2 @@
+export const  GET_PORT_MODE = 'GET_PORT_MODE';
+export const VALUE_CHANGE_DATA = 'VALUE_CHANGE_DATA';

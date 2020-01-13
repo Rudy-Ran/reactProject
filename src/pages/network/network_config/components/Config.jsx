@@ -7,9 +7,8 @@ import * as actionCreators from '../store/actionCreators.js';
 import {IP,checkIPV6,isSubnet} from '@/utils/common.js';
 import {dialog} from '@/utils/h3c.dialog.js';
 const FormItem = Form.Item;
-class Config extends React.Component{
-    render(){
-        const { getFieldDecorator} = this.props.form;
+const Config = props => {
+        const { getFieldDecorator} = props.form;
         const formItemLayout = {
             labelCol: {
                 xs: { span: 24 },
@@ -33,12 +32,12 @@ class Config extends React.Component{
             }
         };
         //判断Input disable 状态
-        const {data} = this.props;
+        const {data} = props;
         let ipv4Flag = (!data.ipv4_enable || data.ipv4_dhcp_enable) ? true : false;
         let ipv6Flag = (!data.ipv6_enable || data.ipv6_dhcp_enable) ? true : false;
         let vlanFlag = data.vlan_enable ? true : false;
         return(
-            <Form labelAlign="left">
+            <Form labelalign="left">
                 <Title title={'IPv4配置'}/>
                 <FormItem label="IPv4配置" {...formItemLayout}>
                     {getFieldDecorator('ipv4_enable',{
@@ -57,7 +56,7 @@ class Config extends React.Component{
                 <FormItem label="IPv4地址" {...formItemLayout}>
                     {getFieldDecorator('ipv4_address',{
                         rules:[{
-                            validator:ipv4Flag ? '' : (rule,value,callback)=>this.validateCfg(rule,value,callback),
+                            validator:ipv4Flag ? '' : (rule,value,callback)=>validateCfg(rule,value,callback),
                         }]
                     })(
                         <Input disabled = {ipv4Flag} /> 
@@ -66,7 +65,7 @@ class Config extends React.Component{
                 <FormItem label="子网掩码" {...formItemLayout}>
                     {getFieldDecorator('ipv4_subnet',{
                         rules:[{
-                            validator:ipv4Flag ? '' : (rule,value,callback)=>this.validateCfg(rule,value,callback)
+                            validator:ipv4Flag ? '' : (rule,value,callback)=>validateCfg(rule,value,callback)
                         }]
                     })(
                         <Input disabled = {ipv4Flag}/> 
@@ -75,7 +74,7 @@ class Config extends React.Component{
                 <FormItem label="默认网关" {...formItemLayout}>
                     {getFieldDecorator('ipv4_gateway',{
                         rules:[{
-                            validator:ipv4Flag ? '' : (rule,value,callback)=>this.validateCfg(rule,value,callback)
+                            validator:ipv4Flag ? '' : (rule,value,callback)=>validateCfg(rule,value,callback)
                         }]
                     })(
                         <Input disabled = {ipv4Flag}/> 
@@ -99,7 +98,7 @@ class Config extends React.Component{
                 <FormItem label="IPv6地址" {...formItemLayout}>
                     {getFieldDecorator('ipv6_address',{
                         rules:[{
-                            validator:ipv6Flag ? '' : (rule,value,callback)=>this.validateCfg(rule,value,callback)
+                            validator:ipv6Flag ? '' : (rule,value,callback)=>validateCfg(rule,value,callback)
                         }]
                     })(
                         <Input disabled = {ipv6Flag}/> 
@@ -108,7 +107,7 @@ class Config extends React.Component{
                 <FormItem label="默认网关" {...formItemLayout}>
                     {getFieldDecorator('ipv6_gateway',{
                         rules:[{
-                            validator:ipv6Flag ? '' : (rule,value,callback)=>this.validateCfg(rule,value,callback)
+                            validator:ipv6Flag ? '' : (rule,value,callback)=>validateCfg(rule,value,callback)
                         }]
                     })(
                         <Input disabled = {ipv6Flag} /> 
@@ -118,7 +117,7 @@ class Config extends React.Component{
                     {getFieldDecorator('ipv6_prefix',{
                         rules:[{
                             pattern: new RegExp(/^[0-9]\d*$/, "g"),
-                            validator:ipv6Flag ? '' : (rule,value,callback)=>this.validateCfg(rule,value,callback)
+                            validator:ipv6Flag ? '' : (rule,value,callback)=>validateCfg(rule,value,callback)
                         }]
                     })(
                         <Input disabled = {ipv6Flag}/> 
@@ -136,7 +135,7 @@ class Config extends React.Component{
                     {getFieldDecorator('vlan_id',{
                         rules:[{
                             pattern: new RegExp(/^[0-9]\d*$/, "g"),
-                            validator:vlanFlag ? (rule,value,callback)=>this.validateCfg(rule,value,callback) : ''
+                            validator:vlanFlag ? (rule,value,callback)=>validateCfg(rule,value,callback) : ''
                         }]
                     })(
                         <Input disabled = {!vlanFlag}/> 
@@ -146,60 +145,61 @@ class Config extends React.Component{
                     {getFieldDecorator('vlan_priority',{
                         rules:[{
                             pattern: new RegExp(/^[0-9]\d*$/, "g"),
-                            validator:vlanFlag ? (rule,value,callback)=>this.validateCfg(rule,value,callback) : ''
+                            validator:vlanFlag ? (rule,value,callback)=>validateCfg(rule,value,callback) : ''
                         }]
                     })(
                         <Input disabled = {!vlanFlag}/> 
                     )}
                 </FormItem>
                 <FormItem {...offsetLayout}>
-                    <Button type="primary" onClick={(e)=>this.handleSubmit(e)}>登录</Button>
+                    <Button type="primary" onClick={(e)=>handleSubmit(props)}>登录</Button>
                 </FormItem>
             </Form>
         );
+}
+//自定义表单校验规则
+//校验IPv4地址
+const validateCfg = (rule,value,callback) =>{
+    switch(rule.field){
+        case "ipv4_address":
+            IP.checkAll(value) ? callback() : callback("IP地址不合法");
+            break;
+        case "ipv4_subnet":
+            isSubnet(value) ? callback() : callback("无效的IPv4子网");
+            break;
+        case "ipv4_gateway":
+            (value !== '0.0.0.0.0' &&  IP.checkAll(value)) ? callback():callback("无效的默认网关");
+            break;
+        case "ipv6_address":
+            checkIPV6(value,false,false) ? callback() : callback('无效的IPv6地址');
+            break;
+        case "ipv6_gateway":
+            checkIPV6(value,false,false) ? callback() : callback('无效的默认网关');
+            break;
+        case "ipv6_prefix":
+            (/^\d+$/.test(value) && value > 0 && value < 128) ?callback() : callback('无效的子网掩码');
+            break;
+        case "vlan_id":
+            (/^\d+$/.test(value) && (value >= 2 && value <= 4094)) ? callback() : callback('无效的VLAN ID');
+            break;
+        case "vlan_priority":
+            (/^\d+$/.test(value) && value >= 0 && value <= 7) ? callback() : callback('无效的VLAN优先级');
+            break;
+        default:
+            callback();
+            break;
     }
-    //自定义表单校验规则
-    //校验IPv4地址
-    validateCfg(rule,value,callback){
-        switch(rule.field){
-            case "ipv4_address":
-                IP.checkAll(value) ? callback() : callback("IP地址不合法");
-                break;
-            case "ipv4_subnet":
-                isSubnet(value) ? callback() : callback("无效的IPv4子网");
-                break;
-            case "ipv4_gateway":
-                (value !== '0.0.0.0.0' &&  IP.checkAll(value)) ? callback():callback("无效的默认网关");
-                break;
-            case "ipv6_address":
-                checkIPV6(value,false,false) ? callback() : callback('无效的IPv6地址');
-                break;
-            case "ipv6_gateway":
-                checkIPV6(value,false,false) ? callback() : callback('无效的默认网关');
-                break;
-            case "ipv6_prefix":
-                (/^\d+$/.test(value) && value > 0 && value < 128) ?callback() : callback('无效的子网掩码');
-                break;
-            case "vlan_id":
-                (/^\d+$/.test(value) && (value >= 2 && value <= 4094)) ? callback() : callback('无效的VLAN ID');
-                break;
-            case "vlan_priority":
-                (/^\d+$/.test(value) && value >= 0 && value <= 7) ? callback() : callback('无效的VLAN优先级');
-                break;
-            default:
-                callback();
-                break;
+}
+const handleSubmit = (props) => {
+    console.log(props.type)
+    const port = props.type === 'dedicatePort' ? '专用网口' : '共享网口'
+    props.form.validateFields((err, values) => {
+        if (!err) {
+            dialog.confirm('浏览器会话将失去连接。确认是否要修改'+port+'配置?',function(){
+                
+            });
         }
-    }
-    handleSubmit(e){
-        this.props.form.validateFields((err, values) => {
-            if (!err) {
-                dialog.confirm('浏览器会话将失去连接。确认是否要修改专用网口配置?',function(){
-                    
-                });
-            }
-        });
-    }
+    });
 }
 const CustomConfig = Form.create({
     onFieldsChange(props, fields) {
@@ -211,6 +211,7 @@ const CustomConfig = Form.create({
         for(var key in fields){
             valueObj[fields[key].name] = fields[key].value;
             if((fields[key].name === "ipv4_enable" && !fields[key].value) || (fields[key].name === "ipv4_dhcp_enable" && fields[key].value)){
+                //如果关闭了IPv4配置或者 开启了自动获取IP地址，则把数据初始化
                 props.dispatch(actionCreators.networkValueChange(props.type,Object.assign(valueObj,{
                     "ipv4_address":initData.ipv4_address,
                     "ipv4_subnet":initData.ipv4_subnet,
@@ -312,4 +313,4 @@ const CustomConfig = Form.create({
     }
 })(Config);
 
-export default connect()(CustomConfig);
+export default connect()(React.memo(CustomConfig));

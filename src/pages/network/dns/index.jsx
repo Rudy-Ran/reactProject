@@ -16,7 +16,7 @@ class DNS extends React.Component {
                 <Title title={'主机名配置'} />
                 <HostNameCfg/>
                 <Title title={'DNS配置'}/>
-                <DNSCfg/>
+                {/* <DNSCfg/> */}
             </Spin>
         );
     }

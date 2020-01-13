@@ -1,4 +1,4 @@
-import axios from 'axios';
+import {fromJS,Map} from 'immutable';
 import * as actionTypes from './constants.js';
 import {getAlarmInfoRequest,
         getTcgStatusRequest,
@@ -11,40 +11,37 @@ import {getAlarmInfoRequest,
 function initAlarmInfo(data){
     return{
         type:actionTypes.INIT_ALARM_INFO,
-        data
+        data:Map(data)
     };
 }
 function initTCGStatus(data){
     return {
         type:actionTypes.INIT_TCG_STATUS,
-        data
+        data:Map(data)
     };
 }
 function initHostName(data){
-    console.log(data)
     return {
         type:actionTypes.INIT_HOST_NAME,
-        data
+        data:Map(data)
     };
 }
 function initNetworkData(data){
     return {
         type:actionTypes.INIT_NET_DATA,
-        data
+        data:fromJS(data)
     };
 }
 function initFirmwareData(data){
     return {
         type:actionTypes.INIT_FIRMWARE_DATA,
-        hdm_info:data[0].bmc_revision,
-        bios_info:data[0].bios_revision,
-        cpld_info:data[0].cpld_revision
+        data:fromJS(data)
     };
 }
 function initNTP(data){
     return {
         type:actionTypes.INIT_NTP_DATA,
-        time:data.timestamp
+        data:Map(data)
     };
 }
 function initSession(data){
@@ -124,55 +121,53 @@ function initSession(data){
     }
     return {
         type:actionTypes.INIT_SESSION_DATA,
-        data
+        data:fromJS(data)
     };
 }
 function initHealthInfo(data){
     return{
         type:actionTypes.INIT_HEALTH_INFO,
-        data
+        data:Map(data)
     };
 }
 export function getDashboardData(){
-
     return async (dispatch)=>{
-        getAlarmInfoRequest().then(data=>{
+        await getAlarmInfoRequest().then(data=>{
             dispatch(initAlarmInfo(data))
         }).catch(()=>{
             console.log('getAlarmInfoFail !')
         })
-        getTcgStatusRequest().then(data=>{
+        await getTcgStatusRequest().then(data=>{
             dispatch(initTCGStatus(data))
         }).catch(()=>{
             console.log('getTcgStatusFail !')
         })
-        getNetworkRequest().then(data=>{
+        await getNetworkRequest().then(data=>{
             dispatch(initNetworkData(data))
         }).catch(()=>{
             console.log('getNetworkFail !')
         })
-        getHostRequest().then(data=>{
-            dispatch(initHostName(data.host_name))
+        await getHostRequest().then(data=>{
+            dispatch(initHostName(data))
         }).catch((err)=>{
-            console.log(err)
             console.log('getHostFail !')
         })
-        getFirmwareRequest().then(data=>{
+        await getFirmwareRequest().then(data=>{
             dispatch(initFirmwareData(data))
         }).catch(()=>{
             console.log('getFirmwareFail !')
         })
-        getNTPRequest().then(data=>{
+        await getNTPRequest().then(data=>{
             dispatch(initNTP(data))
         }).catch(()=>{
             console.log('getNTPFail !')
         })
-        getSessionRequest().then(data=>{
+        await getSessionRequest().then(data=>{
             dispatch(initSession(data))
         }).catch(()=>{
             console.log('getSessionFail !')
         })
-        getHealthInfoRequest().then(data=>{
+        await getHealthInfoRequest().then(data=>{
             dispatch(initHealthInfo(data))
         }).catch(()=>{
             console.log('getHealthInfoFail !')

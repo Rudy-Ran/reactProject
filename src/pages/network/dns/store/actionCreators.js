@@ -1,39 +1,29 @@
-import axios from 'axios';
-export const SAVE_HOST_NAME = 'SAVE_HOST_NAME';
-export const UPDATE_DNS = 'SAVE_DNS';
-export const SHOW_MODAL = 'SHOW_MODAL';
-export const SHOW_MODAL_TIPS = 'SHOW_MODAL_TIPS';
-export const INIT_DNS_DATA = 'INIT_DNS_DATA';
-export const INIT_HOST_DATA = 'INIT_HOST_DATA';
-export const HOST_VALUE_CHANGE = 'HOST_VALUE_CHANGE';
-export const DNS_VALUE_CHANGE = 'DNS_VALUE_CHANGE';
-export const JDUGE_DISABLE_STATUS = 'JDUGE_DISABLE_STATUS';
-export const CHANGE_ERROR_STATUS = 'CHANGE_ERROR_STATUS';
-export const CLEAT_ERROR_STATUS = 'CLEAT_ERROR_STATUS';
+import {getHostRequest,getDNSRequest} from '@/api/request.js';
+import * as actionTypes from './constants.js';
 import {clearWait,showWait} from '@/common/store/actionCreators.js'; 
 import { fromJS } from 'immutable';
 export function hostValueChange(key,value){
     return {
-        type:HOST_VALUE_CHANGE,
+        type:actionTypes.HOST_VALUE_CHANGE,
         key,
         value
     };
 }
 export function jdugeDisableStatus(){
     return {
-        type:JDUGE_DISABLE_STATUS,
+        type:actionTypes.JDUGE_DISABLE_STATUS,
     };
 }
 export function dnsValueChange(key,value){
     return {
-        type:DNS_VALUE_CHANGE,
+        type:actionTypes.DNS_VALUE_CHANGE,
         key,
         value
     };
 }
 export function updateDNS(value){
     return {
-        type:UPDATE_DNS,
+        type:actionTypes.UPDATE_DNS,
         payload:{
             value
         }
@@ -41,7 +31,7 @@ export function updateDNS(value){
 }
 export function isShowModal(value){
     return{
-        type:SHOW_MODAL,
+        type:actionTypes.SHOW_MODAL,
         payload:{
             value
         }
@@ -49,20 +39,24 @@ export function isShowModal(value){
 }
 export function isShowModalTips(value){
     return{
-        type:SHOW_MODAL_TIPS,
+        type:actionTypes.SHOW_MODAL_TIPS,
         payload:{
             value
         }
     };
 }
-const initDNSData = (data) => ({
-    type:INIT_DNS_DATA,
-    data:fromJS(data)
-});
-const initHostData =(data) => ({
-    type:INIT_HOST_DATA,
-    data:fromJS(data)
-});
+function initDNSData(data){
+    return{
+        type:actionTypes.INIT_DNS_DATA,
+        data:fromJS(data)
+    }
+}
+function initHostData(data){
+    return{
+        type:actionTypes.INIT_HOST_DATA,
+        data:fromJS(data)
+    }
+}
 export function saveHostName(value){
     axios.post('http://network/host',
         value
@@ -73,13 +67,17 @@ export function saveHostName(value){
 export function getData(){
     return async (dispatch)=>{
         dispatch(showWait());
-        const res1 = await axios.get('http://network/dns');
-        const res2 = await axios.get('http://network/host');
-        if(res1.status === 200 && res2.status === 200){
-            dispatch(clearWait());
-            dispatch(initDNSData(res1.data));
-            dispatch(initHostData(res2.data));
-            dispatch(jdugeDisableStatus());
-        }
+        await getHostRequest().then(data=>{
+            dispatch(initHostData(data))
+        }).catch((err)=>{
+            console.log(err)
+        })
+        await getDNSRequest().then(data=>{
+            dispatch(initDNSData())
+        }).catch(()=>{
+            console.log('getDNSRequest Fail')
+        })
+        dispatch(clearWait());
+        // dispatch(jdugeDisableStatus());
     };
 } 
