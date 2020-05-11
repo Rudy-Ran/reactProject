@@ -108,7 +108,11 @@ module.exports = {
     dns,
     port_mode,
     port_mode_post,
+<<<<<<< HEAD
     // get_host
+=======
+    get_host
+>>>>>>> 4da154179012aaed1b786b2028639e975df261fe
 }
 
 

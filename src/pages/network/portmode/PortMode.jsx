@@ -26,7 +26,11 @@ const PortMode = props => {
         <Spin size="large" spinning={showWait}>
             <H3CModal visible={modalVisible} content={modalContent} />
             <Alert message="开启网口自适应模式后，HDM会优先使用专用网口进行网络通信，在专用网口未连接时，会自动跳转到共享网口" type="info" showIcon />
+<<<<<<< HEAD
             <Title title="网口模式" />
+=======
+            <Title title="Bonding配置" />
+>>>>>>> 4da154179012aaed1b786b2028639e975df261fe
             <div>
                 <Row>
                     <Col span={8}>选择模式</Col>

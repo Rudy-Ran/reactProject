@@ -223,3 +223,11 @@ ReactDOM.render(
 ```javascript
 <Route path="/home" render={() => <div>Home</div>}/>
 ```
+
+### TODO
+
+- 网络模块下，共享网口和专用网口目前都是用的Network组件，这个地方可以优化下，用一个文件搞定，思路是获取url判断用户当前点击的是专用网口还是共享网口，应该涉及 `withRouter`
+- 网卡选择页面未实现
+- post方法在F12不显示传递的参数，axios需要进一步封装
+- mock还可以在进一步优化下
+- 对于输入框的Error处理是否有更好的方式
