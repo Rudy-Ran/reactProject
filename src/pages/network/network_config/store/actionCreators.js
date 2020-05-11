@@ -1,46 +1,44 @@
-import axios from 'axios';
-export const INIT_NETWORK_DATA = 'INIT_NETWORK_DATA';
-export const NETWORK_VALUE_CHANGE = 'NETWORK_VALUE_CHANGE';
-export const NETWORK_ERRORS_CHANGE = 'NETWORK_ERRORS_CHANGE';
+import {
+    getNetworkRequest,
+} from '@/api/request.js';
+import {fromJS,Map} from 'immutable';
 import {dialog} from '@/utils/h3c.dialog.js';
-import {clearWait,showWait,showModal} from '@/common/store/actionCreators.js'; 
-export const JDUGE_DISABLE_STATUS = 'JDUGE_DISABLE_STATUS';
+import {clearWait,showWait,showModal} from '@/common/store/actionCreators.js';
+import * as actionTypes from './constants.js';
 function initNetWorkData(data){
     return{
-        type:INIT_NETWORK_DATA,
-        eth0_data:data[0],
-        eth1_data:data[1],
-        init_data:data
+        type:actionTypes.INIT_NETWORK_DATA,
+        dedicate:Map(data[0]),
+        shared:Map(data[1]),
+        network:fromJS(data)
     };
 }
-export function networkValueChange(component,value){
+export function networkValueChange(component,data){
     return{
-        type:NETWORK_VALUE_CHANGE,
+        type:actionTypes.NETWORK_VALUE_CHANGE,
         component,
-        value
+        data:fromJS(data)
     };
 }
-export function handleErrorChange(value){
+export function handleErrorChange(data){
     return{
-        type:NETWORK_ERRORS_CHANGE,
-        value
+        type:actionTypes.NETWORK_ERRORS_CHANGE,
+        data:fromJS(data)
     };
 }
 export function jdugeDisableStatus(){
     return {
-        type:JDUGE_DISABLE_STATUS
+        type:actionTypes.JDUGE_DISABLE_STATUS
     };
 }
 export function getNetWorkData(){
     return async(dispatch)=>{
-        await axios.get('http://settings/network').then(
-            function(res){
-                //TODO:这个地方应该优化 目前没用cc判断
-                dispatch(initNetWorkData(res.data));
-                dispatch(jdugeDisableStatus());
-            }).catch(function(error){
-            dialog.notify('获取网络配置失败');
-        });
+        await getNetworkRequest().then(data=>{
+            dispatch(initNetWorkData(data));
+            dispatch(jdugeDisableStatus());
+        }).catch(()=>{
+            // dialog.notify('获取网络配置失败');
+        })
     };
 }
 export function saveDedicatePortCfg(data){

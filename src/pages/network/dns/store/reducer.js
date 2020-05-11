@@ -1,4 +1,4 @@
-import {SAVE_HOST_NAME,UPDATE_DNS,INIT_DNS_DATA,DNS_VALUE_CHANGE,HOST_VALUE_CHANGE,JDUGE_DISABLE_STATUS,CHANGE_ERROR_STATUS,CLEAT_ERROR_STATUS,INIT_HOST_DATA} from './actionCreators.js';
+import * as actionTypes from './constants.js';
 import {fromJS} from 'immutable';
 const initState = fromJS({
     hostData: {},
@@ -10,16 +10,16 @@ const initState = fromJS({
 });
 export default function (state=initState, action) {
     switch (action.type) {
-        case SAVE_HOST_NAME:{
+        case actionTypes.SAVE_HOST_NAME:{
             return state.set('hostData',action.data);
         }
-        case HOST_VALUE_CHANGE:{
+        case actionTypes.HOST_VALUE_CHANGE:{
             return state.setIn(["hostData",action.key],action.value);
         }
-        case DNS_VALUE_CHANGE:{
+        case actionTypes.DNS_VALUE_CHANGE:{
             return state.setIn(["dnsData",action.key],action.value,);
         }
-        case JDUGE_DISABLE_STATUS:{
+        case actionTypes.JDUGE_DISABLE_STATUS:{
             if(state.getIn(['dnsData','dns_status']) === 0){
                 return state.merge({
                     disableInput: true,
@@ -37,16 +37,16 @@ export default function (state=initState, action) {
                 });
             }
         }
-        case UPDATE_DNS:{
+        case actionTypes.UPDATE_DNS:{
             return{
                 ...state,
                 dnsData:action.payload.value
             };
         }
-        case INIT_DNS_DATA:{
+        case actionTypes.INIT_DNS_DATA:{
             return state.set('dnsData',action.data);
         }
-        case INIT_HOST_DATA:{
+        case actionTypes.INIT_HOST_DATA:{
             return state.set('hostData',action.data);
         }
         default:

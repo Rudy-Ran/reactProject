@@ -11,7 +11,7 @@
     "lint": "eslint --ext .js --ext .jsx src/",
     "lint-fix": "eslint --fix --ext .js --ext .jsx src/",
     "test": "jest",
-    "mock": "node src/mock/mockServer"
+    "mock": "node src/mock/mockServer" 
   },
   "devDependencies": {
     "antd": "^3.13.0",
@@ -56,7 +56,7 @@
     "mockjs": "^1.0.1-beta3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-redux": "^5.0.6",
+    "react-redux": "^5.1.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",

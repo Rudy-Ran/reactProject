@@ -4,13 +4,11 @@ const initState = fromJS({
     health_info: {},
     alarm_info: {},
     tcgStatus:{},
-    hostName:'',
+    host:{},
     networkData:[],
-    hdm_info:'N/A',
-    bios_info:'N/A',
-    cpld_info:'N/A',
-    hdmTime:'N/A',
-    seesionTableData:{},
+    firmware:[],
+    ntp:{},
+    seesionTableData:[],
     columns: [
         {
             title: '会话ID',
@@ -44,25 +42,6 @@ const initState = fromJS({
         },
     ]
 });
-    //转换时间戳
-function changeTimestamp(Timestamp) {
-    var time = new Date(Timestamp * 1000);
-    var year = time.getUTCFullYear();
-    var month = time.getUTCMonth() + 1;
-    var date = time.getUTCDate();
-    var hours = time.getUTCHours();
-    var mimutes = time.getUTCMinutes();
-    var seconds = time.getUTCSeconds();
-    if ((!isNaN(month)) && (!isNaN(date)) && 　(!isNaN(hours)) && (!isNaN(mimutes)) && 　(!isNaN(seconds))) {
-        month = ((month < 10) ? "0" : "") + month;
-        date = ((date < 10) ? "0" : "") + date;
-        hours = ((hours < 10) ? "0" : "") + hours;
-        mimutes = ((mimutes < 10) ? "0" : "") + mimutes;
-        seconds = ((seconds < 10) ? "0" : "") + seconds;
-    }
-    var buildTime = year + "-" + month + "-" + date + " " + hours + ":" + mimutes + ":" + seconds;
-    return buildTime;
-}
 export default function(state = initState, action) {
     switch (action.type) {
         case actionTypes.INIT_HEALTH_INFO:{
@@ -75,20 +54,16 @@ export default function(state = initState, action) {
             return state.set('tcgStatus',action.data);
         }
         case actionTypes.INIT_HOST_NAME:{
-            return state.set('hostName',action.data);
+            return state.set('host',action.data);
         }
         case actionTypes.INIT_NET_DATA:{
             return state.set('networkData',action.data);
         }
         case actionTypes.INIT_FIRMWARE_DATA :{
-            return state.merge({
-                'hdm_info':action.hdm_info,
-                'bios_info':action.bios_info,
-                'cpld_info':action.cpld_info
-            });
+            return state.set('firmware',action.data)
         }
         case actionTypes.INIT_NTP_DATA:{
-            return state.set('hdmTime',changeTimestamp(action.time));
+            return state.set('ntp',action.data);
         }
         case actionTypes.INIT_SESSION_DATA:{
             return state.set('seesionTableData',action.data);

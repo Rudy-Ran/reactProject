@@ -1,34 +1,34 @@
 import {fromJS} from 'immutable';
-import {INIT_NETWORK_DATA,NETWORK_VALUE_CHANGE,NETWORK_ERRORS_CHANGE} from './actionCreators.js';
+import * as actionTypes from './constants.js';
 const initState = fromJS({
-    dedicatePort:{},
-    sharedPort:{},
+    dedicateData:{},
+    sharedData:{},
     errors:{},
-    initNetworkData:{}
+    networkData:[]
 });
 export default function (state=initState,action){
     switch(action.type){
-        case INIT_NETWORK_DATA:{
+        case actionTypes.INIT_NETWORK_DATA:{
             return state.merge({
-                sharedPort:fromJS(action.eth0_data),
-                dedicatePort:fromJS(action.eth1_data),
-                initNetworkData:action.init_data
+                sharedData:action.dedicate,
+                dedicateData:action.shared,
+                networkData:action.network
             });
         }
-        case NETWORK_VALUE_CHANGE:{
+        case actionTypes.NETWORK_VALUE_CHANGE:{
             if(action.component === 'dedicatePort'){
                 return state.merge({
-                    dedicatePort:fromJS(state.get(action.component)).merge(fromJS(action.value))
+                    dedicateData:state.get('dedicateData').merge(action.data)
                 });
             }else {
                 return state.merge({
-                    sharedPort:fromJS(state.get(action.component)).merge(fromJS(action.value))
+                    sharedData:state.get('sharedData').merge(action.data)
                 });
             }
         }
-        case NETWORK_ERRORS_CHANGE:{
+        case actionTypes.NETWORK_ERRORS_CHANGE:{
             return state.merge({
-                errors:state.get("errors").merge(fromJS(action.value))
+                errors:state.get("errors").merge(action.data)
             });
         }
         default:

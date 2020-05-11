@@ -1,4 +1,23 @@
 
+//转换时间戳
+ export function changeTimestamp(Timestamp) {
+    var time = new Date(Timestamp * 1000);
+    var year = time.getUTCFullYear();
+    var month = time.getUTCMonth() + 1;
+    var date = time.getUTCDate();
+    var hours = time.getUTCHours();
+    var mimutes = time.getUTCMinutes();
+    var seconds = time.getUTCSeconds();
+    if ((!isNaN(month)) && (!isNaN(date)) && 　(!isNaN(hours)) && (!isNaN(mimutes)) && 　(!isNaN(seconds))) {
+        month = ((month < 10) ? "0" : "") + month;
+        date = ((date < 10) ? "0" : "") + date;
+        hours = ((hours < 10) ? "0" : "") + hours;
+        mimutes = ((mimutes < 10) ? "0" : "") + mimutes;
+        seconds = ((seconds < 10) ? "0" : "") + seconds;
+    }
+    var buildTime = year + "-" + month + "-" + date + " " + hours + ":" + mimutes + ":" + seconds;
+    return buildTime;
+}
 export function isHostName(hname){
     const filter = /^([a-zA-Z0-9\_\-])+$/;
     const v = new String(hname);

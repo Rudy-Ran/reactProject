@@ -1,9 +1,8 @@
 import React from 'react';
 import { Row,Col,Alert } from 'antd';
 import Title from "@/common/components/subSection/subSectionTitle.jsx";
-class Basic extends React.Component{
-    render(){
-        const data = this.props.data;
+const Basic = (props) =>{
+        const data = props.data;
         return(
             <div>
                 <Alert message="HDM共享网络接口与专用网络接口的IPv4地址处于同一网段，可能导致网络不通" type="error" showIcon 
@@ -11,7 +10,7 @@ class Basic extends React.Component{
                 <Title title={'概况'}/>
                 <Row>
                     <Col span={8}>LAN接口</Col>
-                    <Col span={12}>{this.props.type === 'eth1' ? '专用网口' : '共享网口'}</Col>
+                    <Col span={12}>{props.type === 'eth1' ? '专用网口' : '共享网口'}</Col>
                 </Row>
                 <Row>
                     <Col span={8}>MAC地址</Col>
@@ -62,6 +61,5 @@ class Basic extends React.Component{
                 </Row>
             </div>
         );
-    }
 }
-export default Basic;
+export default React.memo(Basic);
